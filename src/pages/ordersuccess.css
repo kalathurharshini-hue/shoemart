@@ -1,0 +1,97 @@
+.success-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 20px;
+  background: #f7f7f7;
+  box-sizing: border-box;
+}
+
+.success-card {
+  width: 100%;
+  max-width: 550px;
+  background: white;
+  padding: 50px 30px;
+  text-align: center;
+  border-radius: 16px;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+}
+
+.success-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  background: #22c55e;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 45px;
+  font-weight: bold;
+}
+
+.success-card h1 {
+  font-size: 30px;
+  margin-bottom: 15px;
+}
+
+.success-card p {
+  color: #555;
+  font-size: 17px;
+}
+
+.success-text {
+  margin-bottom: 30px;
+}
+
+.success-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.success-btn,
+.home-btn {
+  text-decoration: none;
+  padding: 13px 22px;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.success-btn {
+  background: #111;
+  color: white;
+}
+
+.home-btn {
+  background: #e5e5e5;
+  color: #111;
+}
+
+.success-btn:hover,
+.home-btn:hover {
+  opacity: 0.85;
+}
+
+@media (max-width: 600px) {
+  .success-card {
+    padding: 35px 20px;
+  }
+
+  .success-card h1 {
+    font-size: 24px;
+  }
+
+  .success-buttons {
+    flex-direction: column;
+  }
+
+  .success-btn,
+  .home-btn {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
