@@ -6,6 +6,7 @@ function Wishlist() {
   const [wishlist, setWishlist] = useState([]);
 
   useEffect(() => {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
     setWishlist(JSON.parse(localStorage.getItem("wishlist")) || []);
   }, []);
 
@@ -52,23 +53,26 @@ function Wishlist() {
 
   return (
     <div className="wishlist-page">
+
       <div className="wishlist-header">
         <p>SAVED PRODUCTS</p>
         <h1>My Wishlist</h1>
       </div>
 
       <div className="wishlist-grid">
-        {wishlist.map((product) => (
-          <div className="wishlist-card" key={product.id}>
+          {wishlist.map((product) => (
+            <div className="wishlist-card" key={product.id}>
             <div className="wishlist-image">
               <img src={product.image} alt={product.name} />
 
-              <button
-                onClick={() => removeWishlist(product.id)}
-              >
+                  <button
+                    className="remove-btn"
+                    onClick={() => removeWishlist(product.id)}
+                  >
                 ♥
-              </button>
-            </div>
+                  </button>
+
+                </div>
 
             <div className="wishlist-info">
               <p>{product.category}</p>
@@ -88,10 +92,13 @@ function Wishlist() {
                   Add to Cart
                 </button>
               </div>
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+
+        </div>
+      )
+
     </div>
   );
 }

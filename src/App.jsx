@@ -7,16 +7,19 @@ import {
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Chatbot from "./components/Chatbot";
 
 import Home from "./pages/Home";
 import Products from "./pages/Products";
 import ProductDetails from "./pages/ProductDetails";
 import Cart from "./pages/Cart";
-import Wishlist from "./pages/Wishlist";
+import Wishlist from "./pages/wishlist";
+import Signup from "./pages/Signup";
 import Login from "./pages/Login";
-import SignUp from "./pages/SignUp";
-import Checkout from "./pages/Checkout";
-import OrderSuccess from "./pages/OrderSuccess";
+import Profile from "./pages/Profile";
+import Checkout from "./pages/checkout";
+import OrderSuccess from "./pages/ordersuccess";
+import Orders from "./pages/Orders";
 import NotFound from "./pages/NotFound";
 
 import "./App.css";
@@ -43,7 +46,11 @@ function App() {
 
           <Route path="/login" element={<Login />} />
 
-          <Route path="/signup" element={<SignUp />} />
+          <Route path="/profile" element={<Profile />} />
+
+          <Route path="/orders" element={<Orders />} />
+
+          <Route path="/signup" element={<Signup />} />
 
           <Route
             path="/checkout"
@@ -66,6 +73,8 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
+
+      <Chatbot />
 
       <Footer />
     </BrowserRouter>

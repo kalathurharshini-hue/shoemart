@@ -43,6 +43,7 @@ function Login() {
         email: user.email,
       })
     );
+    window.dispatchEvent(new Event("userLogin"));
 
     navigate(redirect);
   };

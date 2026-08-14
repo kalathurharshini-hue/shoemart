@@ -1,11 +1,33 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./Navbar.css";
+
 function Navbar() {
   const navigate = useNavigate();
+
   const [isLoggedIn, setIsLoggedIn] = useState(
     !!localStorage.getItem("currentUser")
   );
+
+  const [currentUser, setCurrentUser] = useState(
+    JSON.parse(localStorage.getItem("currentUser"))
+  );
+
+  // Login ayyaka refresh lekunda user name update avvadaniki
+  useEffect(() => {
+    const handleUserLogin = () => {
+      const user = JSON.parse(localStorage.getItem("currentUser"));
+
+      setCurrentUser(user);
+      setIsLoggedIn(!!user);
+    };
+
+    window.addEventListener("userLogin", handleUserLogin);
+
+    return () => {
+      window.removeEventListener("userLogin", handleUserLogin);
+    };
+  }, []);
 
   const cart = JSON.parse(localStorage.getItem("cart")) || [];
   const wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
@@ -21,6 +43,7 @@ function Navbar() {
     localStorage.removeItem("currentUser");
 
     setIsLoggedIn(false);
+    setCurrentUser(null);
 
     alert("You have been logged out successfully.");
 
@@ -39,12 +62,18 @@ function Navbar() {
         {/* Navigation Links */}
         <div className="nav-links">
           <Link to="/">Home</Link>
+
           <Link to="/products">Products</Link>
+
           <Link to="/wishlist">
             Wishlist ❤️
             {wishlistCount > 0 && (
               <span className="nav-count">{wishlistCount}</span>
             )}
+          </Link>
+
+          <Link to="/profile">
+            {currentUser?.name || "Profile"} 👤
           </Link>
 
           <Link to="/cart">

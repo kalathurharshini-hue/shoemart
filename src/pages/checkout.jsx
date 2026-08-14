@@ -36,7 +36,8 @@ function Checkout() {
   const delivery = 0;
 
   // Simple discount
-  const discount = subtotal >= 5000 ? Math.round(subtotal * 0.1) : 0;
+  const discount =
+    subtotal >= 5000 ? Math.round(subtotal * 0.1) : 0;
 
   const total = subtotal + delivery - discount;
 
@@ -48,7 +49,9 @@ function Checkout() {
 
     // Check cart
     if (cart.length === 0) {
-      setError("Your cart is empty. Please add products before checkout.");
+      setError(
+        "Your cart is empty. Please add products before checkout."
+      );
       return;
     }
 
@@ -100,9 +103,10 @@ function Checkout() {
     const orderId =
       "SM" + Math.floor(100000 + Math.random() * 900000);
 
-    // Save order
+    // Create order
     const order = {
       orderId,
+
       customer: {
         name,
         email,
@@ -112,6 +116,7 @@ function Checkout() {
         state,
         pincode,
       },
+
       products: cart,
       subtotal,
       delivery,
@@ -121,7 +126,25 @@ function Checkout() {
       date: new Date().toISOString(),
     };
 
-    localStorage.setItem("lastOrder", JSON.stringify(order));
+    // ========================================
+    // SAVE ALL ORDERS
+    // ========================================
+
+    const existingOrders =
+      JSON.parse(localStorage.getItem("orders")) || [];
+
+    existingOrders.push(order);
+
+    localStorage.setItem(
+      "orders",
+      JSON.stringify(existingOrders)
+    );
+
+    // Save latest order separately
+    localStorage.setItem(
+      "lastOrder",
+      JSON.stringify(order)
+    );
 
     // Clear cart
     localStorage.removeItem("cart");
@@ -265,7 +288,9 @@ function Checkout() {
                     type="radio"
                     name="payment"
                     value="Cash on Delivery"
-                    checked={paymentMethod === "Cash on Delivery"}
+                    checked={
+                      paymentMethod === "Cash on Delivery"
+                    }
                     onChange={(e) =>
                       setPaymentMethod(e.target.value)
                     }
@@ -279,7 +304,9 @@ function Checkout() {
                     type="radio"
                     name="payment"
                     value="Demo Card Payment"
-                    checked={paymentMethod === "Demo Card Payment"}
+                    checked={
+                      paymentMethod === "Demo Card Payment"
+                    }
                     onChange={(e) =>
                       setPaymentMethod(e.target.value)
                     }
@@ -293,7 +320,9 @@ function Checkout() {
                     type="radio"
                     name="payment"
                     value="UPI Demo"
-                    checked={paymentMethod === "UPI Demo"}
+                    checked={
+                      paymentMethod === "UPI Demo"
+                    }
                     onChange={(e) =>
                       setPaymentMethod(e.target.value)
                     }
@@ -325,6 +354,7 @@ function Checkout() {
 
           {cart.length === 0 ? (
             <div className="empty-checkout">
+
               <p>Your cart is empty.</p>
 
               <button
@@ -333,16 +363,21 @@ function Checkout() {
               >
                 Continue Shopping
               </button>
+
             </div>
           ) : (
             <>
+
               {/* PRODUCTS */}
               <div className="summary-products">
 
                 {cart.map((item) => {
 
-                  const quantity = Number(item.quantity) || 1;
-                  const price = Number(item.price) || 0;
+                  const quantity =
+                    Number(item.quantity) || 1;
+
+                  const price =
+                    Number(item.price) || 0;
 
                   return (
                     <div
@@ -370,7 +405,10 @@ function Checkout() {
                       </div>
 
                       <strong>
-                        ₹{(price * quantity).toLocaleString("en-IN")}
+                        ₹
+                        {(price * quantity).toLocaleString(
+                          "en-IN"
+                        )}
                       </strong>
 
                     </div>
@@ -381,14 +419,17 @@ function Checkout() {
 
               {/* TOTALS */}
               <div className="summary-line">
+
                 <span>Subtotal</span>
 
                 <strong>
                   ₹{subtotal.toLocaleString("en-IN")}
                 </strong>
+
               </div>
 
               <div className="summary-line">
+
                 <span>Delivery</span>
 
                 <strong>
@@ -396,22 +437,27 @@ function Checkout() {
                     ? "FREE"
                     : `₹${delivery.toLocaleString("en-IN")}`}
                 </strong>
+
               </div>
 
               <div className="summary-line">
+
                 <span>Discount</span>
 
                 <strong className="discount">
                   -₹{discount.toLocaleString("en-IN")}
                 </strong>
+
               </div>
 
               <div className="summary-total">
+
                 <span>Total</span>
 
                 <strong>
                   ₹{total.toLocaleString("en-IN")}
                 </strong>
+
               </div>
 
               {/* DESKTOP PLACE ORDER BUTTON */}
